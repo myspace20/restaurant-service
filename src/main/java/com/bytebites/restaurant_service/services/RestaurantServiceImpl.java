@@ -95,7 +95,6 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_RESTAURANT_OWNER') and ownershipService.checkRestaurantOwnership(authentication.principal.id)")
     public RestaurantResponse getRestaurantByOwnerId(Long ownerId) {
         Restaurant restaurant = restaurantRepository.findByOwnerId(ownerId)
                 .orElseThrow(() -> new ResourceNotFound("Restaurant not found"));
