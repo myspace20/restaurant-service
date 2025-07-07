@@ -33,7 +33,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    @PreAuthorize("hasRole('ROLE_RESTAURANT_OWNER') and ownershipService.checkRestaurantOwnership(authentication.principal.id)")
+    @PreAuthorize("hasRole('ROLE_RESTAURANT_OWNER')")
     public MenuResponse createMenu(MenuRequest menuRequest) {
        Restaurant restaurant = restaurantService
                .getRestaurantById(menuRequest.restaurant_id());
