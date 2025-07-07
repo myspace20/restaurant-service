@@ -13,7 +13,7 @@ public class OrderEventListener {
 
     private final Logger logger = Logger.getLogger(OrderEventListener.class.getName());
     @KafkaListener(topics = {"OrderPlacedEvent"})
-    public void listen(OrderResponse order) {
+    public void listen(Object order) {
         logger.log(Level.INFO, "Received order: " + order);
     }
 
