@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.util.Date;
+import java.util.List;
 
 @Component
 public class JWTUtil {
@@ -37,6 +39,16 @@ public class JWTUtil {
         } catch (UnsupportedJwtException | MalformedJwtException | SignatureException e) {
             throw new InvalidJWTTokenException("Invalid JWT token");
         }
+    }
+
+    public String generateAccessToken(Long id, List<String> roles) {
+        return Jwts.builder()
+                .setSubject(String.valueOf(id))
+                .claim("roles", roles)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + accessTokenExpiration))
+                .signWith(key)
+                .compact();
     }
 
     public Claims parseToken(String token) {
